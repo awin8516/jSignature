@@ -46,12 +46,8 @@ const signature = require('./signature.js');
 			var popupControls = document.createElement('div');
 			this.btnStart && _$.addEvent(this.btnStart, 'click', function(){
 				that.settings.onBefore && that.settings.onBefore();
-				var canvas = document.createElement('canvas');
-				canvas.width = 1920;
-				canvas.height = 3000;
 				/**/
 				html2canvas(that.element, {
-					//canvas : canvas,
 					type : 'all',					
 					onrendered: function(canvas) {
 						popup.className = "jSignature-popup";
