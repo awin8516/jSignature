@@ -6,7 +6,7 @@
 /**/
 require('./css/jSignature.css');
 window._$ = require('./fun.js');
-const html2canvas = require('./html2canvas.f.js');
+const html2canvas = require('./html2canvas.js');
 const signature = require('./signature.js');
 (function(_win, undefined){
 	'use strict';
@@ -47,9 +47,7 @@ const signature = require('./signature.js');
 			this.btnStart && _$.addEvent(this.btnStart, 'click', function(){
 				that.settings.onBefore && that.settings.onBefore();
 				/**/
-				html2canvas(that.element, {
-					type : 'all',					
-					onrendered: function(canvas) {
+				html2canvas(that.element).then(function(canvas) {
 						popup.className = "jSignature-popup";
 						popupMain.className = 'jSignature-popup-main';
 						popupMainMask.className = 'jSignature-popup-main-mask';
@@ -88,7 +86,7 @@ const signature = require('./signature.js');
 							_$.remove(popup);
 							_$.removeClass('noscroll', html);
 						});
-					}
+					
 				});
 			});
 
