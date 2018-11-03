@@ -62,9 +62,10 @@ window.cancelAnimationFrame = window.cancelAnimationFrame
 				this.canvas = document.createElement('canvas');
 				this.element.appendChild(this.canvas);
 			};
+			this.clientRect = this.canvas.getBoundingClientRect()
 			// Fit canvas to width of parent
 			if (this.settings.autoFit === true) {
-				this._resizeCanvas();
+				// this._resizeCanvas();
 				// TO-DO - allow for dynamic canvas resizing 
 				// (need to save canvas state before changing width to avoid getting cleared)
 				// var timeout = false;
@@ -99,7 +100,9 @@ window.cancelAnimationFrame = window.cancelAnimationFrame
 			// Prevent document scrolling when touching canvas
 			_$.addEvent(document, 'touchstart touchmove touchend', function(e){
 				if (e.target === that.canvas) {
-					e.preventDefault();
+					try{
+						!e.cancelable && e.preventDefault();
+					} catch (e) {}					
 				};
 			});
 		},
@@ -125,22 +128,28 @@ window.cancelAnimationFrame = window.cancelAnimationFrame
 		},
 		// Get the position of the mouse/touch
 		_getPosition: function(event) {
-			var xPos, yPos, rect;
-			rect = this.canvas.getBoundingClientRect();
-			event = event.originalEvent || event;
+			var xPos, yPos;			
+			event = event.originalEvent || event;			
+			var ml = parseInt(this.canvas.parentNode.style.marginLeft);
+			var mt = parseInt(this.canvas.parentNode.style.marginTop);
 			// Touch event
 			if (event.type.indexOf('touch') !== -1) { // event.constructor === TouchEvent
-				xPos = event.touches[0].clientX - rect.left;
-				yPos = event.touches[0].clientY - rect.top;
+				xPos = event.touches[0].clientX - this.clientRect.left - ml;
+				yPos = event.touches[0].clientY - this.clientRect.top - mt;
 			}
 			// Mouse event
 			else {
-				xPos = event.clientX - rect.left;
-				yPos = event.clientY - rect.top;
+				xPos = event.clientX - this.clientRect.left - ml;
+				yPos = event.clientY - this.clientRect.top - mt;
 			}
+			var c = parseInt(this.canvas.width/parseInt(this.canvas.style.width));
+			
+			// console.log(this.canvas.width,this.canvas.style.width);
+			// console.log(this.canvas.height,this.canvas.style.height);
+			
 			return {
-				x: xPos,
-				y: yPos
+				x: xPos*c,
+				y: yPos*c
 			};	
 		},
 		// cloneCanvas
@@ -175,7 +184,6 @@ window.cancelAnimationFrame = window.cancelAnimationFrame
 		},
 		// _scale the canvas element
 		_scale: function() {
-			console.log(0);
 			this.ctx.scale(1.5,1.5);
 		}
 	};

@@ -7,6 +7,7 @@
 	<style>
 		/**/
 		* {padding:0;margin: 0;}
+		img{max-width: 100%;}
 		.signature-box {position: relative;width: 80%;margin: auto}
 		.btns { text-align: center;}
 		.btn { display: inline-block; font-size: 1em; border: 1px #555 dashed; padding: 20px 50px; color: #555;cursor: pointer; margin-bottom: 1em;}
@@ -17,13 +18,18 @@
 	</style>
 <script src="../dist/jSignature.min.js"></script>
 
-<!-- <script src="jquery.1.11.3.min.js"></script>
-<script src="../src/signature/jSignature.js"></script> -->
+<!-- <link rel="stylesheet" type="text/css" href="../src/css/jSignature.css">
+<script src="../src/vconsole.min.js"></script>
+<script src="../src/fun.js"></script>
+<script src="../src/html2canvas.js"></script>
+<script src="../src/jSignature.js"></script>
+<script src="../src/signature.js"></script> -->
 </head>
 <body>
 	<div class="signature-box">
-		<!-- <div><br><br><br><br></div> -->
-		
+		<!-- <div><br><br><br><br></div> -->		
+		<div class="btns"><div id="btnStart1" class="btn btn-start">点击开始签字</div></div>
+
 		<div id="signature_1" class="signature-1">
 			<img src="image/1.jpg" width="400">
 			<p>合同</p>
@@ -80,14 +86,13 @@
 			<p></p>
 			<p>2017年 月 日</p>		
 		</div>
-		<div class="btns">
-			<div id="btnStart" class="btn btn-start">点击开始签字</div>
-			<div id="btnEnd" class="btn btn-end">完成</div>
-		</div>
+
+		<div class="btns"><div id="btnStart2" class="btn btn-start">点击开始签字</div></div>
 	</div>
 	
 	
 	<script type="text/javascript">
+		// var vConsole = new VConsole();
 		window.onload = function(){
 			// mySignature = new jSignature('signature_1', {
 			// 	btnStart: 'btnStart',
@@ -116,7 +121,7 @@
 			
 
 			mySignature = new jSignature('signature_1', {
-				btnStart: 'btnStart',
+				btnStart: '#btnStart1, #btnStart2',
 				lineColor: '#000000',
 				lineWidth: 2,
 				background: '#FFFFFF',
@@ -136,8 +141,7 @@
 					img.style.border = '5px #ff0000 solid';
 					document.body.appendChild(img);
 				}
-			});
-		
+			});		
 		}
 	</script>
 </body>
