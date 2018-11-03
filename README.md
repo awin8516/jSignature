@@ -10,7 +10,7 @@ jSignature
 ## script
 ```javascript
 mySignature = new jSignature('signature_1', {
-    btnStart: 'btnStart',
+    btnStart: '#btnStart',
     btnEnd: 'btnEnd',
     lineColor: '#000000',
     lineWidth: 2,
