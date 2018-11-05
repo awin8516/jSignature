@@ -8,9 +8,18 @@
 .jSignature-popup-controls a {display:inline-block; width: 15%;height: 80%; margin: 0 2px; letter-spacing: 0; vertical-align: middle; position: relative;}
 .jSignature-popup-controls a:before {content:"";display:block; width: 100%;height: 100%;background-color: rgba(255,255,255,0.1); background-position: center; background-repeat: no-repeat; background-size: auto 50%;border-radius: 5px;opacity: 0.3;}
 a.jSignature-popup-controls-signature:before {background-image: url(../image/signature.png);}
+a.jSignature-popup-controls-stroke {background-color:rgba(255,255,255,0.03);}
 a.jSignature-popup-controls-stroke:before {display:inline-block; width:0;vertical-align: middle;}
 a.jSignature-popup-controls-stroke i {display:inline-block; opacity: 0.3;vertical-align: middle;border-radius: 100%;background-color: #fff;}
 a.jSignature-popup-controls-stroke i:before {content: "";display: block;padding-bottom: 100%;}
+a.jSignature-popup-controls-stroke ul {position: absolute;width: 100%;left: 0; bottom: 113%;background: #444;display: none;}
+a.jSignature-popup-controls-stroke.open ul {display: block;}
+a.jSignature-popup-controls-stroke ul li {padding: 20px 0;border-bottom: 1px rgba(255,255,255,0.05) solid;}
+a.jSignature-popup-controls-stroke ul li:before {content: "";display:inline-block;width: 8px;height: 8px;border-radius: 100%;background-color: #fff;}
+a.jSignature-popup-controls-stroke ul li:nth-child(1):before {width: 2px;height: 2px;}
+a.jSignature-popup-controls-stroke ul li:nth-child(2):before {width: 4px;height: 4px;}
+a.jSignature-popup-controls-stroke ul li:nth-child(3):before {width: 6px;height: 6px;}
+a.jSignature-popup-controls-stroke ul li:nth-child(4):before {width: 8px;height: 8px;}
 a.jSignature-popup-controls-zoom-in:before {background-image: url(../image/zoom-in.png);}
 a.jSignature-popup-controls-zoom-out:before {background-image: url(../image/zoom-out.png);}
 a.jSignature-popup-controls-clear:before {background-image: url(../image/clear.png);}
