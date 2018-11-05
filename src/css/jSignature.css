@@ -7,12 +7,15 @@
 .jSignature-popup-controls:before {content: ""; display:inline-block; width: 0;height: 100%;vertical-align:middle;}
 .jSignature-popup-controls a {display:inline-block; width: 15%;height: 80%; margin: 0 2px; letter-spacing: 0; vertical-align: middle; position: relative;}
 .jSignature-popup-controls a:before {content:"";display:block; width: 100%;height: 100%;background-color: rgba(255,255,255,0.1); background-position: center; background-repeat: no-repeat; background-size: auto 50%;border-radius: 5px;opacity: 0.3;}
-.jSignature-popup-controls-signature:before {background-image: url(../image/signature.png);}
-.jSignature-popup-controls-zoom-in:before {background-image: url(../image/zoom-in.png);}
-.jSignature-popup-controls-zoom-out:before {background-image: url(../image/zoom-out.png);}
-.jSignature-popup-controls-clear:before {background-image: url(../image/clear.png);}
-.jSignature-popup-controls-cancel:before {background-image: url(../image/cancel.png);}
-.jSignature-popup-controls-save:before {background-image: url(../image/save.png);}
+a.jSignature-popup-controls-signature:before {background-image: url(../image/signature.png);}
+a.jSignature-popup-controls-stroke:before {display:inline-block; width:0;vertical-align: middle;}
+a.jSignature-popup-controls-stroke i {display:inline-block; opacity: 0.3;vertical-align: middle;border-radius: 100%;background-color: #fff;}
+a.jSignature-popup-controls-stroke i:before {content: "";display: block;padding-bottom: 100%;}
+a.jSignature-popup-controls-zoom-in:before {background-image: url(../image/zoom-in.png);}
+a.jSignature-popup-controls-zoom-out:before {background-image: url(../image/zoom-out.png);}
+a.jSignature-popup-controls-clear:before {background-image: url(../image/clear.png);}
+a.jSignature-popup-controls-cancel:before {background-image: url(../image/cancel.png);}
+a.jSignature-popup-controls-save:before {background-image: url(../image/save.png);}
 
 .jSignature-popup-controls-signature:after {content: "";position: absolute;width: 100%;height: 0;padding-bottom: 70%;left: 0;bottom: 100%; /*background: url(../image/tips.png) no-repeat;background-size: 100% auto;*/}
 

@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>HTML5 canvas支持触摸屏的签名插件</title>
+	<style>
+		/**/
+		* {padding:0;margin: 0;}
+		img{max-width: 100%;}
+		.signature-box {position: relative;width: 80%;margin: auto}
+		.btns { text-align: center;}
+		.btn { display: inline-block; font-size: 1em; border: 1px #555 dashed; padding: 20px 50px; color: #555;cursor: pointer; margin-bottom: 1em;}
+		.btn-hidden { display: none; visibility: hidden}
+		.signature-1{background-color: #fff;padding: 20px;}
+		.signature-1 p{min-height: 12px; line-height: 30px;}
+		.noscroll,.noscroll body {height:100%;overflow-y: hidden;}
+	</style>
+</head>
+
+<body>
+	<div class="signature-box">
+		<!-- <div><br><br><br><br></div> -->
+		<div class="btns">
+			<div id="btnStart1" class="btn btn-start">点击开始签字</div>
+		</div>
+
+		<div id="signature_1" class="signature-1">
+			<img src="/static/image/1.jpg" width="400">
+			<img src="/static/image/1.jpg" width="400">
+			<p>合同</p>
+			<p></p>
+			<p>出租方：______(以下简称甲方)</p>
+			<p></p>
+			<p>身份证：__________________________</p>
+			<p></p>
+			<p>承租方：______(以下简称乙方)</p>
+			<p></p>
+			<p>身份证：__________________________</p>
+			<p></p>
+			<p>根据甲、乙双方在自愿、平等、互利的基础上，经协商一致，为明确双方之间的权利义务关系，就甲方将其合法拥有的房屋出租给乙方使用，乙方承租甲方房屋事宜，订立本合同。</p>
+			<p></p>
+			<p>一、房屋地址：__________________________，用于普通住房。</p>
+			<p></p>
+			<p>二、租赁期限及约定</p>
+			<p></p>
+			<p>1、该房屋租赁期共_____月。自_____年_____月_____日起至_____年_____月_____日止。</p>
+			<p></p>
+			<p>2、房屋租金：每月_____元，按月付款，每月_____日前付款。另付房租押金_____元，水电押金_____元，共计押金______元。(大写：_____万_____仟_____佰_____拾_____元整)，房屋合同终止时，甲方验收无误后，将押金退还乙方，不计利息。</p>
+			<p></p>
+			<p>3、乙方向甲方承诺，租赁该房屋仅作为普通住房使用。
+				乙方负责交纳物业管理费和水、电费(按实际发生数与下月租金同时缴纳，入住时的水电数字：电________，水________，)</p>
+			<p></p>
+			<p>4、租赁期满，甲方有权收回出租房屋，乙方应如期交还。乙方如要求续租，则必须在租赁期满前一个月内通知甲方，经甲方同意后，重新签订租赁合同。</p>
+			<p></p>
+			<p>三、房屋使用</p>
+			<p></p>
+			<p>1、在租赁期内，乙方应合理使用其所承租的房屋及其附属设施。如乙方因使用不当造成房屋及设施损坏的，乙方应负责修复或给予经济赔偿。</p>
+			<p></p>
+			<p>2、在租赁期内，乙方应合理使用家用电器，注意防火、防盗，如因乙方使用不当造成的财产损失一律由乙方负责。</p>
+			<p></p>
+			<p>四、房屋的转让与转租</p>
+			<p></p>
+			<p>1、租赁期间，未经甲方书面同意，乙方不得擅自转租、转借承租房屋。</p>
+			<p></p>
+			<p>五、乙方违约的处理规定</p>
+			<p></p>
+			<p>在租赁期内，乙方有下列行为之一的，甲方有权终止合同，收回该房屋，乙方应向甲方支付合同总租金20%的违约金，若支付的违约金不足弥补甲方损失的，乙方还应负责赔偿直至达到弥补全部损失为止。</p>
+			<p></p>
+			<p>(1) 未经甲方书面同意，擅自将房屋转租、转借给他人使用的;</p>
+			<p></p>
+			<p>(2) 未经甲方同意，擅自拆改变动房屋结构或损坏房屋，且经甲方通知，在规定期限内仍未纠正并修复的;</p>
+			<p></p>
+			<p>(3) 擅自改变本合同规定的租赁用途或利用该房屋进行违法活动的;</p>
+			<p></p>
+			<p>(4) 拖欠房租累计一个月以上的。</p>
+			<p></p>
+			<p>六、本协议一式两份，甲.乙各执一份，签字后即行生效。</p>
+			<p></p>
+			<p>甲方签字： 乙方签字：</p>
+			<p></p>
+			<p>联系方式： 联系方式：</p>
+			<p></p>
+			<p>2017年 月 日</p>
+		</div>
+
+		<div class="btns">
+			<div id="btnStart2" class="btn btn-start">点击开始签字</div>
+		</div>
+	</div>
+
+	<script src="/static/js/vconsole.min.js"></script>
+	<script src="assets/jSignature.js"></script>
+	<script type="text/javascript">
+		function getQueryValue(name) {
+			url = window.location.search;
+			if (name && name != '') {
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = url.substr(1).match(reg);
+				if (r != null) return decodeURIComponent(r[2]); return null;
+			}//end if
+			else return null;
+		}
+		var debug = getQueryValue('debug');
+		debug && (vConsole = new VConsole());
+		window.onload = function () {
+			mySignature = new jSignature('signature_1', {
+				btnStart: '#btnStart1, #btnStart2',
+				lineColor: '#000',
+				lineWidth: 5,
+				background: '#FFFFFF',
+				onBefore: function () {
+					console.log('onBefore');
+				},
+				onStart: function () {
+					console.log('onStart');
+				},
+				onDraging: function () {
+					console.log('onDraging');
+				},
+				onClose: function () {
+					console.log('onClose');
+				},
+				onEnd: function (data) {
+					console.log('onEnd');
+					var img = document.createElement('img');
+					img.src = data;
+					img.style.border = '5px #ff0000 solid';
+					document.body.appendChild(img);
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>
