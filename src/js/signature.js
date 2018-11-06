@@ -85,8 +85,8 @@ signature.prototype = {
     // Set up mouse events
     _$.addEvent(this.canvas, 'mousedown touchstart', function(e) {
       that.drawing = true
-      that.marginLeft = parseInt(that.canvas.parentNode.style.marginLeft)
-      that.marginTop = parseInt(that.canvas.parentNode.style.marginTop)
+      that.marginLeft = parseInt(that.canvas.parentNode.parentNode.style.marginLeft)
+      that.marginTop = parseInt(that.canvas.parentNode.parentNode.style.marginTop)
       that.scalex = parseInt(
         that.canvas.width / parseInt(that.canvas.style.width)
       )
@@ -156,10 +156,8 @@ signature.prototype = {
     }
   },
   // cloneCanvas
-  _cloneCanvas: function() {
-    this.canvasbak = _$.clone(this.canvas)
-    this.ctxbak = this.canvasbak.getContext('2d')
-    this.ctxbak.drawImage(this.canvas, 0, 0)
+  _cloneCanvas: function(canvas) {
+    this.canvasbak = canvas || _$.clone(this.canvas)
   },
   // Render the signature to the canvas
   _renderCanvas: function() {

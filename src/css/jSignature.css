@@ -1,8 +1,9 @@
-.noscroll {overflow:hidden;}
-.jSignature-popup {position: fixed;left:0;top:0; width: 100%; height: 100%;z-index: 1000; background-color: rgba(0,0,0,0.8);}
-.jSignature-popup-main { position: absolute;left:0px;top:0px;right:0px;bottom:50px; overflow: scroll; background-color: #eee;text-align: center; padding: 10px;-webkit-overflow-scrolling : touch; }
-.jSignature-popup-main canvas{box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);}
-.jSignature-popup-main-mask{position: absolute;left:0px;top:0px;width: 100%;display: block;background: rgba(0,0,0,0.0);}
+.jSignature-popup-open {overflow:hidden;}
+.jSignature-popup {position: fixed;left:0;top:0; width: 100%; height: 100%;z-index: 1000; background-color: rgba(0,0,0,0.8);display: none;}
+.jSignature-popup-open .jSignature-popup{display: block;}
+.jSignature-popup-scroll { position: absolute;left:0px;top:0px;right:0px;bottom:50px; overflow: scroll; background-color: #eee;text-align: center; padding: 10px;-webkit-overflow-scrolling : touch; }
+.jSignature-popup-scroll canvas{box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);}
+.jSignature-popup-mask{position: absolute;left:0px;top:0px;width: 100%;height: 100%; display: block;background: rgba(0,0,0,0.0);}
 .jSignature-popup-controls {position: absolute;left:0px;right:0px;bottom:0px; height: 50px; background:linear-gradient(to bottom, #444, #2b2b2b);text-align: center; font-size: 0;letter-spacing: -4px;white-space: nowrap;box-shadow: 0 0 10px rgba(0,0,0,0.5);}
 .jSignature-popup-controls:before {content: ""; display:inline-block; width: 0;height: 100%;vertical-align:middle;}
 .jSignature-popup-controls a {display:inline-block; width: 15%;height: 80%; margin: 0 2px; letter-spacing: 0; vertical-align: middle; position: relative;}
@@ -28,8 +29,8 @@ a.jSignature-popup-controls-save:before {background-image: url(../image/save.png
 
 .jSignature-popup-controls-signature:after {content: "";position: absolute;width: 100%;height: 0;padding-bottom: 70%;left: 0;bottom: 100%; /*background: url(../image/tips.png) no-repeat;background-size: 100% auto;*/}
 
-.jSignature-popup-signature .jSignature-popup-main {overflow: hidden;-webkit-overflow-scrolling:auto;}
-.jSignature-popup-signature .jSignature-popup-main-mask {display: none;}
+.jSignature-popup-signature .jSignature-popup-scroll {overflow: hidden;-webkit-overflow-scrolling:auto;}
+.jSignature-popup-signature .jSignature-popup-mask {display: none;}
 .jSignature-popup-signature .jSignature-popup-controls-signature:after {display: none;}
 .jSignature-popup-signature .jSignature-popup-controls-signature:before ,
 .jSignature-popup-zoom-in   .jSignature-popup-controls-zoom-in:before ,

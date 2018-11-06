@@ -122,7 +122,7 @@ _$.getElement = function(classname, parent) {
       }
     }
   }
-  return res.length == 1 ? res[0] : res
+  return res
 }
 _$.children = function(parent, filter) {
   var res = []
@@ -139,7 +139,7 @@ _$.children = function(parent, filter) {
       }
     }
   }
-  return res.length == 1 ? res[0] : res
+  return res
 }
 _$.formatClass = function(classname) {
   if (typeof classname === 'string')
@@ -154,7 +154,7 @@ _$.clone = function(element, flag) {
   } else {
     res = element.cloneNode(flag)
   }
-  return res.length == 1 ? res[0] : res
+  return res
 }
 _$.prepend = function(newChild, parent) {
   if (parent.firstChild) {
