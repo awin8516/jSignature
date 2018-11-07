@@ -15,13 +15,15 @@ mySignature = new jSignature('signature_1', {
     lineColor: '#000000',
     lineWidth: 2,
     background: '#FFFFFF',
+    onBefore: null,
     onStart:function(data){
         console.log('onStart');
     },
-    onMove : function(data){
-        console.log('onMove');
+    onDraging : function(data){
+        console.log('onDraging');
         //console.log(data);
     },
+    onClose: null,
     onEnd : function(data){
         console.log('onEnd');
         var img = document.createElement('img');
