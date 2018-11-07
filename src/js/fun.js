@@ -134,8 +134,26 @@ _$.children = function(parent, filter) {
   } else {
     var arr = parent.childNodes
     for (var i = 0; i < arr.length; i++) {
-      if (arr[i].className != undefined) {
-        res.push(arr[i])
+      if(filter){
+        if (filter.indexOf('.') != -1) {
+          if (
+            arr[i].className != undefined &&
+            _$.inArray(filter.replace('.', ''), arr[i].className.split(' '))
+          ) {
+            res.push(arr[i])
+          }
+        } else {
+          if (
+            arr[i].tagName &&
+            filter.toLowerCase() == arr[i].tagName.toLowerCase()
+          ) {
+            res.push(arr[i])
+          }
+        }
+      }else{
+        if (arr[i].className != undefined) {
+          res.push(arr[i])
+        }
       }
     }
   }

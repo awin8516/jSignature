@@ -29,19 +29,20 @@ window.cancelAnimationFrame =
  * by javascript
  **************/
 
-var defaults = {
-  lineColor: '#222222',
-  lineWidth: 1,
-  background: '#FFFFFF',
-  autoFit: false,
-  onDraging: null
-}
+
 
 var signature = function(element, options) {
+  this.defaults = {
+    lineColor: '#222222',
+    lineWidth: 1,
+    background: '#FFFFFF',
+    autoFit: false,
+    onDraging: null
+  }
   // DOM elements/objects
   this.element = element
   this.canvas = false
-  this.canvasbak = false
+  this.canvasbak = document.createElement('canvas')
   this.ctx = false
   // Drawing state
   this.drawing = false
@@ -50,7 +51,7 @@ var signature = function(element, options) {
   // Determine plugin settings
   //this._data = this.$element.data();
   this.useAnimFrame = true
-  this.settings = _$.extend(defaults, options)
+  this.settings = _$.extend(this.defaults, options)
   // Initialize the plugin
   this.init()
 }
@@ -65,22 +66,22 @@ signature.prototype = {
       this.canvas = document.createElement('canvas')
       this.element.appendChild(this.canvas)
     }
-    this.clientRect = this.canvas.getBoundingClientRect()
     // Fit canvas to width of parent
     if (this.settings.autoFit === true) {
-      // this._resizeCanvas();
+      // this.resizeCanvas();
       // TO-DO - allow for dynamic canvas resizing
       // (need to save canvas state before changing width to avoid getting cleared)
       // var timeout = false;
       // $(window).on('resize', $.proxy(function(e) {
       //   clearTimeout(timeout);
-      //   timeout = setTimeout($.proxy(this._resizeCanvas, this), 250);
+      //   timeout = setTimeout($.proxy(this.resizeCanvas, this), 250);
       // }, this));
     }
     _$.addClass('signature-initialized', this.canvas)
     this.canvas.style.cursor = 'default'
-    this._cloneCanvas()
-    this._resetCanvas()
+    this.backupCanvas()
+    this.setCanvas()
+    this.clientRect = this.canvas.getBoundingClientRect()
     var that = this
     // Set up mouse events
     _$.addEvent(this.canvas, 'mousedown touchstart', function(e) {
@@ -91,13 +92,13 @@ signature.prototype = {
         that.canvas.width / parseInt(that.canvas.style.width)
       )
       that.ctx.beginPath()
-      that.lastPos = that.currentPos = that._getPosition(e)
-      this.useAnimFrame && that._drawLoop()
+      that.lastPos = that.currentPos = that.getPosition(e)
+      this.useAnimFrame && that.drawLoop()
     })
     _$.addEvent(that.canvas, 'mousemove touchmove', function(e) {
       if (that.drawing) {
-        that.currentPos = that._getPosition(e)
-        !this.useAnimFrame && that._renderCanvas()
+        that.currentPos = that.getPosition(e)
+        !this.useAnimFrame && that.renderCanvas()
         that.settings.onDraging && that.settings.onDraging(that)
       }
     })
@@ -114,10 +115,19 @@ signature.prototype = {
       that.ctx.closePath()
     })
   },
+  reInit : function(canvas){
+    this.canvas.width = canvas.width
+    this.canvas.height = canvas.height
+    this.canvas.style.width = canvas.style.width
+    this.canvas.style.height = canvas.style.height
+    this.backupCanvas(canvas)
+    this.setCanvas(canvas)
+    this.clientRect = this.canvas.getBoundingClientRect()
+  },
   // Clear the canvas
   clearCanvas: function() {
-    this.canvas.width = this.canvas.width
-    this._resetCanvas()
+    this.canvas.width = this.canvas.width    
+    this.setCanvas()
   },
   // Get the content of the canvas as a base64 data URL
   getDataURL: function(type, encoderOptions) {
@@ -126,16 +136,16 @@ signature.prototype = {
     return this.canvas.toDataURL(type, encoderOptions)
   },
   //
-  _drawLoop: function() {
+  drawLoop: function() {
     // Start drawing
     var that = this
     ;(function drawLoop() {
       that.animFrame = requestAnimFrame(drawLoop)
-      that._renderCanvas()
+      that.renderCanvas()
     })()
   },
   // Get the position of the mouse/touch
-  _getPosition: function(event) {
+  getPosition: function(event) {
     var xPos, yPos
     event = event.originalEvent || event
     // Touch event
@@ -155,21 +165,27 @@ signature.prototype = {
       y: yPos * this.scalex
     }
   },
-  // cloneCanvas
-  _cloneCanvas: function(canvas) {
-    this.canvasbak = canvas || _$.clone(this.canvas)
-  },
+  
   // Render the signature to the canvas
-  _renderCanvas: function() {
+  renderCanvas: function() {
     if (this.drawing) {
       this.ctx.moveTo(this.lastPos.x, this.lastPos.y)
       this.ctx.lineTo(this.currentPos.x, this.currentPos.y)
       this.ctx.stroke()
       this.lastPos = this.currentPos
     }
+  },// backupCanvas
+  backupCanvas: function(canvas) {
+    canvas = canvas || this.canvas
+    this.canvasbak.width = canvas.width
+    this.canvasbak.height = canvas.height
+    this.canvasbak.style.width = canvas.style.width
+    this.canvasbak.style.height = canvas.style.height
+    var ctx = this.canvasbak.getContext('2d')
+    ctx.drawImage(canvas, 0, 0)
   },
   // Reset the canvas context
-  _resetCanvas: function() {
+  setCanvas: function() {
     this.ctx = this.canvas.getContext('2d')
     this.ctx.drawImage(this.canvasbak, 0, 0)
     this.ctx.lineCap = 'round'
@@ -179,8 +195,15 @@ signature.prototype = {
     this.ctx.strokeStyle = this.settings.lineColor
     this.ctx.lineWidth = this.settings.lineWidth
   },
+  resetCanvas:function(o){
+    this.settings = _$.extend(this.settings, o)
+    this.ctx.shadowBlur = this.settings.shadowBlur
+    this.ctx.shadowColor = this.settings.shadowColor
+    this.ctx.strokeStyle = this.settings.lineColor
+    this.ctx.lineWidth = this.settings.lineWidth
+  },
   // Resize the canvas element
-  _resizeCanvas: function() {
+  resizeCanvas: function() {
     this.canvas.width = this.element.clientWidth
     this.canvas.height = this.element.clientHeight
     this.canvas.style.width = this.element.clientWidth + 'px'

@@ -4,7 +4,8 @@
   "description": "t",
   "main": "index.js",
   "dependencies": {
-    "html2canvas": "^1.0.0-alpha.12"
+    "html2canvas": "^1.0.0-alpha.12",
+    "vanilla-picker": "^2.6.0"
   },
   "devDependencies": {
     "css-loader": "^1.0.1",
