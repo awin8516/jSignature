@@ -114,19 +114,21 @@ import Picker from "vanilla-picker";
         onDraging: this.settings.onDraging
       });
 
-      // var ColorPicker = CodeMirrorColorPicker.ColorPicker;
-      // this.colorpicker = new ColorPicker({
-      //   color: "blue", // init color code
-      //   type: "sketch" // or 'sketch',  default type is 'chromedevtool'
-      // });
-
-      // new colorpicker({"color": "#ff0000"})
-
       var mainScrollLeft = 0;
       var mainScrollTop = 0;
       var signatureIng = false;
       var left = null;
       var top = null;
+      var closePopup = function() {
+        mainScrollLeft = 0;
+        mainScrollTop = 0;
+        signatureIng = false;
+        left = null;
+        top = null;
+        popupScroll.style = "";
+        _$.removeClass("jSignature-popup-open", that.html);
+        that.mySignature.clearCanvas();
+      };
       var fn = [
         // 签字笔
         function() {
@@ -161,45 +163,33 @@ import Picker from "vanilla-picker";
 
         // 清除
         function() {
-          that.mySignature.clearCanvas();
+          that.mySignature.backtoCanvas();
         },
 
         // 关闭
         function() {
-          mainScrollLeft = 0;
-          mainScrollTop = 0;
-          signatureIng = false;
-          left = null;
-          top = null;
-          popupScroll.style = "";
           that.settings.onClose && that.settings.onClose();
-          _$.removeClass("jSignature-popup-open", that.html);
+          closePopup();
         },
 
         // 确认
         function() {
-          mainScrollLeft = 0;
-          mainScrollTop = 0;
-          signatureIng = false;
-          left = null;
-          top = null;
-          popupScroll.style = "";
           that.settings.onEnd &&
             that.settings.onEnd(that.mySignature.getDataURL());
-          _$.removeClass("jSignature-popup-open", that.html);
+          closePopup();
         }
       ];
 
       for (var i = 0; i < btns.length; i++) {
         _$.addEvent(btns[i], this.ev.click, fn[i]);
-        
+
         (function(k) {
           if (
             btns[k].className.indexOf("jSignature-popup-controls-color") != -1
           ) {
             that.picker = new Picker({
               parent: btns[k],
-              popup: 'top',
+              popup: "top",
               onChange: function(color) {
                 btns[k].style.color = color.rgbaString;
                 that.mySignature.resetCanvas({
@@ -238,9 +228,9 @@ import Picker from "vanilla-picker";
         that.settings.onStart && that.settings.onStart(that.mySignature);
       });
     },
-    noScroll: function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    noScroll: function(event) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   };
 

@@ -124,8 +124,13 @@ signature.prototype = {
     this.setCanvas(canvas)
     this.clientRect = this.canvas.getBoundingClientRect()
   },
-  // Clear the canvas
+  // clear the canvas
   clearCanvas: function() {
+    var ctx = this.canvas.getContext('2d')
+    this.canvas.height=this.canvas.height; 
+  },
+  // backto the canvas
+  backtoCanvas: function() {
     this.canvas.width = this.canvas.width    
     this.setCanvas()
   },
